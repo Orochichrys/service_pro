@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mar. 14 avr. 2026 à 13:26
+-- Généré le : mar. 14 avr. 2026 à 19:42
 -- Version du serveur : 8.0.45-0ubuntu0.24.04.1
 -- Version de PHP : 8.3.6
 
@@ -31,7 +31,7 @@ CREATE TABLE `Categorie` (
   `id_categorie` int NOT NULL,
   `nom_categorie` varchar(100) NOT NULL,
   `icone_categorie` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `Categorie`
@@ -77,7 +77,7 @@ CREATE TABLE `Commande` (
   `statut` varchar(50) DEFAULT 'En attente',
   `id_utilisateur` int NOT NULL,
   `id_quartier` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `Commande`
@@ -96,7 +96,7 @@ CREATE TABLE `Departement` (
   `id_departement` int NOT NULL,
   `nom_departement` varchar(100) NOT NULL,
   `id_region` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `Departement`
@@ -119,16 +119,18 @@ CREATE TABLE `Prestation` (
   `image_prestation` varchar(255) DEFAULT NULL,
   `datecrea_prestation` datetime DEFAULT CURRENT_TIMESTAMP,
   `id_service` int NOT NULL,
-  `id_utilisateur` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_utilisateur` int NOT NULL,
+  `statut_prestation` varchar(20) DEFAULT 'en_attente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `Prestation`
 --
 
-INSERT INTO `Prestation` (`id_prestation`, `titre_prestation`, `description_prestation`, `prix_prestation`, `image_prestation`, `datecrea_prestation`, `id_service`, `id_utilisateur`) VALUES
-(1, 'Installation et Remplacement de Disjoncteurs / Prises', 'Mise aux normes de votre tableau électrique ou ajout de nouvelles prises dans vos pièces. Sécurité garantie. Je vérifie également la mise à la terre pour protéger vos appareils électroménagers contre les surtensions.', 10000.00, 'assets/img/uploads/service_1775312607_69d11edfb7c27.webp', '2026-04-04 14:13:51', 2, 3),
-(2, 'Maquillage Professionnel pour Mariage & Cérémonie', 'Sublimez votre beauté pour vos événements spéciaux. J\'utilise des produits de haute qualité adaptés à tous les types de peaux. Inclus : faux-cils et fixation longue durée. Déplacement à domicile possible avec frais supplémentaires selon la zone.', 25000.00, 'assets/img/uploads/service_1775345393_69d19ef1d9a09.jpg', '2026-04-04 23:29:53', 8, 4);
+INSERT INTO `Prestation` (`id_prestation`, `titre_prestation`, `description_prestation`, `prix_prestation`, `image_prestation`, `datecrea_prestation`, `id_service`, `id_utilisateur`, `statut_prestation`) VALUES
+(1, 'Installation et Remplacement de Disjoncteurs / Prises', 'Mise aux normes de votre tableau électrique ou ajout de nouvelles prises dans vos pièces. Sécurité garantie. Je vérifie également la mise à la terre pour protéger vos appareils électroménagers contre les surtensions.', 10000.00, 'assets/img/uploads/service_1775312607_69d11edfb7c27.webp', '2026-04-04 14:13:51', 2, 3, 'validee'),
+(2, 'Maquillage Professionnel pour Mariage & Cérémonie', 'Sublimez votre beauté pour vos événements spéciaux. J\'utilise des produits de haute qualité adaptés à tous les types de peaux. Inclus : faux-cils et fixation longue durée. Déplacement à domicile possible avec frais supplémentaires selon la zone.', 25000.00, 'assets/img/uploads/service_1775345393_69d19ef1d9a09.jpg', '2026-04-04 23:29:53', 8, 4, 'validee'),
+(3, 'Réparation de fuites et Débouchage Sanitaire', 'Expert en dépannage urgent. Je répare vos fuites d\'eau (robinets, tuyauteries) et je débouche vos éviers ou WC. Travail rapide, disponible même le week-end. Matériel de qualité fourni si besoin.', 10000.00, 'assets/img/uploads/service_1776188308_69de7b94ec41b.webp', '2026-04-14 17:30:15', 1, 2, 'en_attente');
 
 -- --------------------------------------------------------
 
@@ -140,7 +142,7 @@ CREATE TABLE `Quartier` (
   `id_quartier` int NOT NULL,
   `nom_quartier` varchar(100) NOT NULL,
   `id_ville` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `Quartier`
@@ -160,7 +162,7 @@ INSERT INTO `Quartier` (`id_quartier`, `nom_quartier`, `id_ville`) VALUES
 CREATE TABLE `Region` (
   `id_region` int NOT NULL,
   `nom_region` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `Region`
@@ -179,7 +181,7 @@ CREATE TABLE `Service` (
   `id_service` int NOT NULL,
   `nom_service` varchar(100) NOT NULL,
   `id_categorie` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `Service`
@@ -214,7 +216,7 @@ CREATE TABLE `Utilisateur` (
   `is_validated` tinyint(1) DEFAULT '0',
   `date_inscription` datetime DEFAULT CURRENT_TIMESTAMP,
   `id_quartier` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `Utilisateur`
@@ -222,7 +224,7 @@ CREATE TABLE `Utilisateur` (
 
 INSERT INTO `Utilisateur` (`id_utilisateur`, `nom_utilisateur`, `prenom_utilisateur`, `email_utilisateur`, `password_utilisateur`, `tel_utilisateur`, `est_client`, `est_prestataire`, `est_admin`, `is_validated`, `date_inscription`, `id_quartier`) VALUES
 (1, 'Admin', 'Principal', 'admin@servicepro.ci', '$2y$10$CIcKfUm.norpTeoZT0JOeOy/Qkbi6Z963vsoXffCKy3Qq9BM3ujq2', NULL, 1, 0, 1, 0, '2026-03-31 23:13:29', NULL),
-(2, 'Koffi', 'Jean-Luc', 'jlkoffi@outlook.com', '$2y$10$1/DIxcu7/7Sgg06ktVs6YOd9kcdL7TsxOzEWC/CJExSSvdhJfHWba', '0102030405', 1, 0, 0, 0, '2026-04-02 23:25:20', 3),
+(2, 'Koffi', 'Jean-Luc', 'jlkoffi@outlook.com', '$2y$10$1/DIxcu7/7Sgg06ktVs6YOd9kcdL7TsxOzEWC/CJExSSvdhJfHWba', '0102030405', 1, 1, 0, 1, '2026-04-02 23:25:20', 3),
 (3, 'Bakayoko', 'Marc', 'marc.b@gmail.com', '$2y$10$Bi6N2PFTBhGwSUSVh/Js6uAsWIcwU7Bwqh/EsnSmjXqKpEcZ1n/tO', '01909245', 0, 1, 0, 1, '2026-04-02 23:29:34', 2),
 (4, 'Awa', 'Coulibaly', 'awa.design@yahoo.fr', '$2y$10$oTYw7NhMMXKNRUiEaOJdde00I4j4tNWr4J/48y5ewfzVeSx4N.Gy6', NULL, 0, 1, 0, 1, '2026-04-04 15:05:14', 1);
 
@@ -236,7 +238,7 @@ CREATE TABLE `Ville` (
   `id_ville` int NOT NULL,
   `nom_ville` varchar(100) NOT NULL,
   `id_departement` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `Ville`
@@ -346,7 +348,7 @@ ALTER TABLE `Departement`
 -- AUTO_INCREMENT pour la table `Prestation`
 --
 ALTER TABLE `Prestation`
-  MODIFY `id_prestation` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_prestation` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `Quartier`
