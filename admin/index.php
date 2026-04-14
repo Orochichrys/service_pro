@@ -70,7 +70,7 @@ $prestataires = $conn->query($sql_prestataires)->fetchAll(PDO::FETCH_ASSOC);
             <div class="col-md-3">
                 <div class="card border-0 shadow-sm p-3">
                     <div class="d-flex align-items-center">
-                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle me-3 text-primary">
+                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle me-3 text-white">
                             <i class="bi bi-people fs-4"></i>
                         </div>
                         <div>
