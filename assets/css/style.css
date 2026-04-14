@@ -1,0 +1,257 @@
+:root {
+    --primary-color: #6f42c1; /* Violet */
+    --secondary-color: #f8f9fa;
+}
+
+html {
+     overflow-x: hidden;
+ }
+
+body {
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     color: #333;
+     width: 100%;
+     margin: 0;
+     padding: 0;
+ }
+ 
+* {
+    box-sizing: border-box;
+}
+
+img, video, iframe {
+    max-width: 100%;
+}
+
+/* Sections avec icônes décoratives absolues - empêche le débordement latéral */
+section, header, footer {
+    overflow-x: clip;
+}
+
+
+/* Navbar */
+.navbar {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+
+.text-primary { color: var(--primary-color) !important; }
+.btn-primary { background-color: var(--primary-color); border-color: var(--primary-color); }
+.btn-primary:hover { background-color: #5a32a3; border-color: #5a32a3; }
+
+/* UNIFICATION DES BOUTONS ET FORMES */
+.rounded-pill, .rounded-md-pill {
+    border-radius: 8px !important;
+}
+
+.btn {
+    --bs-btn-border-radius: 8px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-sm {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.75rem;
+}
+
+/* Hero Section Custom */
+.hero-section {
+    height: 60vh;
+    background: linear-gradient(rgba(111, 66, 193, 0.8), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+.search-box {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 576px) {
+    .display-3 {
+        font-size: 2.2rem !important;
+        line-height: 1.2;
+    }
+    .hero-section {
+        height: auto;
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+}
+
+/* Category Cards */
+.category-item {
+    transition: all 0.3s ease;
+}
+
+.category-item:hover {
+    transform: translateY(-10px);
+    background-color: var(--primary-color) !important;
+}
+
+.category-item:hover h6, 
+.category-item:hover .category-icon i {
+    color: white !important;
+}
+
+/* Service Card */
+.service-card {
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: scale(1.02);
+}
+
+.service-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+
+.service-card-hover {
+    transition: all 0.3s ease;
+}
+
+.service-card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.pagination .page-link {
+    color: var(--primary-color);
+    border: none;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+.avatar-sm {
+    border: 1px solid #eee;
+}
+
+aside .card {
+    position: sticky;
+    top: 90px;
+}
+/* Footer Premium */
+.footer-premium {
+    background-color: #0f172a; /* Deep Slate (très professionnel) */
+    color: #ffffff;
+}
+
+.footer-link {
+    display: block;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    font-size: 0.9rem;
+}
+
+.footer-link:hover {
+    color: #c4b5fd; /* Violet clair au survol */
+    padding-left: 5px;
+}
+
+.text-primary-light {
+    color: #a78bfa;
+}
+
+.social-link {
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.social-link:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-3px) rotate(8deg);
+}
+
+.border-secondary {
+    border-color: rgba(148, 163, 184, 0.1) !important;
+}
+
+/* Global Links */
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+a:hover {
+    color: #5a32a3;
+}
+
+/* Category Icons & Section */
+.bg-section-categories {
+    background-color: #f5f3ff !important; /* Très léger violet lavande */
+}
+
+.category-icon i {
+    color: var(--primary-color);
+}
+
+/* Bootstrap Theme Override for Buttons & Checkboxes */
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover, 
+.btn-check:checked + .btn-outline-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+/* Form controls focus color */
+.form-control:focus, .form-select:focus {
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.25);
+}
+
+/* Overriding Bootstrap Defaults to ensure no blue remains */
+.bg-primary { 
+    background-color: var(--primary-color) !important; 
+}
+.text-primary { 
+    color: var(--primary-color) !important; 
+}
+.btn-primary { 
+    background-color: var(--primary-color) !important; 
+    border-color: var(--primary-color) !important; 
+}
+.btn-primary:hover { 
+    background-color: #5a32a3 !important; 
+    border-color: #5a32a3 !important; 
+}
+.border-primary { 
+    border-color: var(--primary-color) !important; 
+}
+.nav-link.active {
+    color: var(--primary-color) !important;
+}
+.avatar-xs, .avatar-sm, .avatar-xl {
+    background-color: var(--primary-color) !important;
+}
+
+/* Fix for profile icons and buttons color */
+.bi-person, .bi-bag-check, .bi-plus-circle, .bi-speedometer2 {
+    color: inherit;
+}
+
