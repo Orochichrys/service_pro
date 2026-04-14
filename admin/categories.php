@@ -23,8 +23,7 @@ if (isset($_POST['ajouter_categorie'])) {
         $stmt = $conn->prepare($sql);
         $stmt->execute(['nom' => $nom, 'icone' => $icone]);
     }
-    header("Location: categories.php");
-    exit();
+    redirection("categories.php");
 }
 
 // 1.5 MODIFICATION CATÉGORIE
@@ -42,8 +41,7 @@ if (isset($_POST['modifier_categorie'])) {
         $stmt = $conn->prepare($sql);
         $stmt->execute(['nom' => $nom, 'icone' => $icone, 'id' => $id]);
     }
-    header("Location: categories.php");
-    exit();
+    redirection("categories.php");
 }
 
 // 2. AJOUT SERVICE
@@ -55,23 +53,20 @@ if (isset($_POST['ajouter_service'])) {
         $stmt = $conn->prepare($sql);
         $stmt->execute(['nom' => $nom, 'id_cat' => $id_cat]);
     }
-    header("Location: categories.php");
-    exit();
+    redirection("categories.php");
 }
 
 // 3. SUPPRESSION
 if (isset($_GET['suppr_cat'])) {
     $id = securisation($_GET['suppr_cat']);
     $conn->prepare("DELETE FROM Categorie WHERE id_categorie = :id")->execute(['id' => $id]);
-    header("Location: categories.php");
-    exit();
+    redirection("categories.php");
 }
 
 if (isset($_GET['suppr_service'])) {
     $id = securisation($_GET['suppr_service']);
     $conn->prepare("DELETE FROM Service WHERE id_service = :id")->execute(['id' => $id]);
-    header("Location: categories.php");
-    exit();
+    redirection("categories.php");
 }
 
 // 2.5 MODIFICATION SERVICE
@@ -85,8 +80,7 @@ if (isset($_POST['modifier_service'])) {
         $stmt = $conn->prepare($sql);
         $stmt->execute(['nom' => $nom, 'id_cat' => $id_cat, 'id' => $id]);
     }
-    header("Location: categories.php");
-    exit();
+    redirection("categories.php");
 }
 
 // 4. RÉCUPÉRATION DES DONNÉES
@@ -336,18 +330,6 @@ $toutes_categories = $conn->query("SELECT * FROM Categorie ORDER BY nom_categori
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <script>
-    function remplirModalEdit(btn) {
-        document.getElementById('edit_id').value = btn.getAttribute('data-id');
-        document.getElementById('edit_nom').value = btn.getAttribute('data-nom');
-        document.getElementById('edit_icone').value = btn.getAttribute('data-icone');
-    }
-
-    function remplirModalService(btn) {
-        document.getElementById('edit_ser_id').value = btn.getAttribute('data-id');
-        document.getElementById('edit_ser_nom').value = btn.getAttribute('data-nom');
-        document.getElementById('edit_ser_cat').value = btn.getAttribute('data-cat');
-    }
-    </script>
+    <script src="assets/js/admin.js"></script>
 </body>
 </html>

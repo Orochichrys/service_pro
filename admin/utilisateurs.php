@@ -9,16 +9,14 @@ if (isset($_GET['supprimer'])) {
     $sql_delete = "DELETE FROM Utilisateur WHERE id_utilisateur = :id AND est_admin = FALSE"; // On ne supprime pas les admins ici par sécurité
     $stmt = $conn->prepare($sql_delete);
     $stmt->execute(['id' => $id_a_supprimer]);
-    header("Location: utilisateurs.php");
-    exit();
+    redirection("utilisateurs.php");
 }
 
 // Validation d'un prestataire
 if (isset($_GET['approuver'])) {
     $id = (int)$_GET['approuver'];
     $conn->prepare("UPDATE Utilisateur SET is_validated = 1 WHERE id_utilisateur = ?")->execute([$id]);
-    header("Location: utilisateurs.php");
-    exit();
+    redirection("utilisateurs.php");
 }
 
 // Paramètres de pagination

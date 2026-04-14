@@ -247,14 +247,7 @@ $base_url = "catalogue.php?" . http_build_query($query_params);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        // Script pour mettre à jour la valeur du prix max en temps réel
-        const range = document.getElementById('priceRange');
-        const value = document.getElementById('priceValue');
-        range.addEventListener('input', () => {
-            value.textContent = new Intl.NumberFormat().format(range.value);
-        });
-    </script>
+    <script src="assets/js/site.js"></script>
 </body>
 
 </html>

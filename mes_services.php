@@ -5,13 +5,11 @@ require_once("includes/fonctions.php");
 
 // 1. Vérification prestataire
 if (!isset($_SESSION['user_id']) || !$_SESSION['est_prestataire']) {
-    header("Location: mon_profil.php");
-    exit();
+    redirection("mon_profil.php");
 }
 if (isset($_SESSION['is_validated']) && $_SESSION['is_validated'] == 0) {
     $_SESSION['profile_success'] = "Veuillez patienter ! Votre compte prestataire est en attente de validation par l'administration.";
-    header("Location: mon_profil.php");
-    exit();
+    redirection("mon_profil.php");
 }
 
 $user_id = $_SESSION['user_id'];
@@ -21,7 +19,7 @@ if(isset($_GET['suppr_service'])){
     $id_serv = (int)$_GET['suppr_service'];
     $conn->prepare("DELETE FROM Prestation WHERE id_prestation = ? AND id_utilisateur = ?")->execute([$id_serv, $user_id]);
     $_SESSION['service_msg'] = "Service supprimé avec succès.";
-    header("Location: mes_services.php"); exit();
+    redirection("mes_services.php");
 }
 
 // 3. Récupération des services

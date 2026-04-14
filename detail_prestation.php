@@ -4,7 +4,7 @@ require_once("includes/db.php");
 require_once("includes/fonctions.php");
 
 $id_presta = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-if($id_presta == 0) { header("Location: catalogue.php"); exit(); }
+if($id_presta == 0) { redirection("catalogue.php"); }
 
 // 1. Récupération des détails complets
 $sql = "SELECT p.*, u.nom_utilisateur, u.prenom_utilisateur, u.email_utilisateur, u.tel_utilisateur, u.date_inscription as date_membre, q.nom_quartier, 
@@ -20,14 +20,13 @@ $stmt = $conn->prepare($sql);
 $stmt->execute([$id_presta]);
 $p = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$p) { header("Location: catalogue.php"); exit(); }
+if (!$p) { redirection("catalogue.php"); }
 
 // Vérification de visibilité : Seul le proprio, l'admin ou tout le monde si c'est validé
 $is_owner = (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $p['id_utilisateur']);
 $is_admin = (isset($_SESSION['est_admin']) && $_SESSION['est_admin'] == 1);
 if ($p['statut_prestation'] !== 'validee' && !$is_owner && !$is_admin) {
-    header("Location: catalogue.php");
-    exit();
+    redirection("catalogue.php");
 }
 
 // 2. Liste des quartiers pour la modal
@@ -68,8 +67,7 @@ if (isset($_POST['confirmer_commande']) && isset($_SESSION['user_id'])) {
                  ->execute([$id_cmd, $id_presta, $montant]);
 
             $_SESSION['commande_bravo'] = "Demande envoyée ! Le prestataire a bien reçu votre commande.";
-            header("Location: mon_profil.php");
-            exit();
+            redirection("mon_profil.php");
         } else {
             $erreur_commande = "Veuillez sélectionner un lieu pour l'intervention.";
         }
@@ -95,23 +93,7 @@ if($user_id > 0){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .sticky-custom {
-            top: 100px;
-            z-index: 1010 !important;
-        }
-        .review-avatar {
-            width: 45px;
-            height: 45px;
-            background-color: var(--primary-color);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border-radius: 50%;
-        }
-    </style>
+    
 </head>
 
 <body class="bg-light">

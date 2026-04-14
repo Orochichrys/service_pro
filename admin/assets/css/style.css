@@ -340,3 +340,7 @@ img {
         padding-top: 70px; /* Espace pour le menu flottant mobile */
     }
 }
+/* --- Styles extraits des fichiers PHP (Admin) --- */
+
+/* Gestion des Commandes */
+.badge-status { text-transform: uppercase; font-size: 0.7rem; padding: 0.4rem 0.8rem; }

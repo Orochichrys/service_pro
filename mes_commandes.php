@@ -5,8 +5,7 @@ require_once("includes/fonctions.php");
 
 // 1. Vérification connexion et rôle
 if (!isset($_SESSION['user_id']) || !$_SESSION['est_client']) {
-    header("Location: index.php");
-    exit();
+    redirection("index.php");
 }
 
 $user_id = $_SESSION['user_id'];
@@ -19,7 +18,7 @@ if(isset($_GET['annuler_commande'])){
     $stmt_cancel = $conn->prepare("UPDATE Commande SET statut = 'Annulée' WHERE id_commande = ? AND id_utilisateur = ? AND statut = 'En attente'");
     $stmt_cancel->execute([$id_cmd, $user_id]);
     if($stmt_cancel->rowCount() > 0) $_SESSION['msg_achats'] = "Commande #$id_cmd annulée.";
-    header("Location: mes_achats.php"); exit();
+    redirection("mes_commandes.php");
 }
 
 // Action de laisser un avis (Update table Cibler)
@@ -33,7 +32,7 @@ if(isset($_POST['laisser_avis'])){
     if($stmt_avis->execute([$note, $commentaire, $id_cmd])){
         $_SESSION['msg_achats'] = "Merci ! Votre avis a été enregistré avec succès.";
     }
-    header("Location: mes_achats.php"); exit();
+    redirection("mes_commandes.php");
 }
 
 // 2. Mes Achats enrichis avec les données d'évaluation
@@ -59,12 +58,7 @@ $mes_achats = $a_stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .star-rating { color: #ffc107; cursor: pointer; font-size: 1.5rem; }
-        .star-rating .bi-star:hover, .star-rating .bi-star-fill { color: #ffc107; }
-        .btn-avis { background: #6f42c1; color: white; border-radius: 50px; font-weight: bold; border: none; padding: 5px 15px; font-size: 0.75rem; transition: 0.3s; }
-        .btn-avis:hover { background: #5a32a3; color: white; transform: scale(1.05); }
-    </style>
+    
 </head>
 
 <body class="bg-light">
@@ -209,37 +203,7 @@ $mes_achats = $a_stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php include("includes/pied_de_page.php");?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Logique de la modal
-        const modalAvis = document.getElementById('modalAvis');
-        modalAvis.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            document.getElementById('id_commande_modal').value = button.getAttribute('data-id');
-            document.getElementById('service_nom_modal').textContent = button.getAttribute('data-service');
-        });
-
-        // Logique des étoiles
-        const stars = document.querySelectorAll('.rating-star');
-        const noteInput = document.getElementById('note_input');
-
-        stars.forEach(star => {
-            star.addEventListener('click', function() {
-                const val = this.getAttribute('data-value');
-                noteInput.value = val;
-                
-                stars.forEach(s => {
-                    if(s.getAttribute('data-value') <= val) {
-                        s.classList.replace('bi-star', 'bi-star-fill');
-                    } else {
-                        s.classList.replace('bi-star-fill', 'bi-star');
-                    }
-                });
-            });
-            
-            // État par défaut (5 étoiles)
-            if(star.getAttribute('data-value') <= 5) star.classList.replace('bi-star', 'bi-star-fill');
-        });
-    </script>
+    <script src="assets/js/site.js"></script>
 </body>
 
 </html>

@@ -5,8 +5,7 @@ require_once("includes/fonctions.php");
 
 // 1. Vérification si prestataire
 if (!isset($_SESSION['user_id']) || !$_SESSION['est_prestataire']) {
-    header("Location: auth/connexion.php");
-    exit();
+    redirection("auth/connexion.php");
 }
 
 $user_id = $_SESSION['user_id'];
@@ -18,8 +17,7 @@ $stmt->execute([$id_presta, $user_id]);
 $presta = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$presta) {
-    header("Location: mon_profil.php");
-    exit();
+    redirection("mon_profil.php");
 }
 
 // 3. Récupération des services pour le sélecteur
@@ -69,8 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $conn->prepare($sql)->execute([$titre, $description, $prix, $image_path, $id_service, $id_presta, $user_id]);
         
         $_SESSION['service_msg'] = "Service mis à jour avec succès ! Il sera réexaminé par l'administration.";
-        header("Location: mes_services.php");
-        exit();
+        redirection("mes_services.php");
     }
 }
 ?>

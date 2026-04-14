@@ -27,10 +27,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             // Redirection
             if ($user['est_admin']) {
-                header("Location: ../admin/index.php");
-            } else {
-                header("Location: ../index.php");
-            }
+                redirection("../admin/index.php");} else {
+                redirection("../index.php");}
             exit();
         } else {
             $erreur = "Email ou mot de passe incorrect.";
@@ -49,52 +47,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-        }
-
-        .split-container {
-            height: 100vh;
-        }
-
-        .image-side {
-            background: linear-gradient(rgba(111, 66, 193, 0.4), rgba(0, 0, 0, 0.6)), 
-                        url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem;
-            color: white;
-        }
-
-        .form-side {
-            background-color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem;
-        }
-
-        .login-form {
-            width: 100%;
-            max-width: 400px;
-        }
-
-        @media (max-width: 991.98px) {
-            .image-side {
-                display: none;
-            }
-            body, html {
-                overflow-y: auto;
-            }
-        }
-    </style>
-</head>
+    </head>
 <body>
 
     <div class="container-fluid p-0">
@@ -166,18 +119,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
     </div>
 
-    <script>
-        function togglePassword(id, btn) {
-            const input = document.getElementById(id);
-            const icon = btn.querySelector('i');
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.replace('bi-eye', 'bi-eye-slash');
-            } else {
-                input.type = "password";
-                icon.classList.replace('bi-eye-slash', 'bi-eye');
-            }
-        }
-    </script>
+    <script src="../assets/js/auth.js"></script>
 </body>
 </html>

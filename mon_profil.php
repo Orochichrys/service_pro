@@ -5,8 +5,7 @@ require_once("includes/fonctions.php");
 
 // 1. Vérification connexion
 if (!isset($_SESSION['user_id'])) {
-    header("Location: auth/connexion.php");
-    exit();
+    redirection("auth/connexion.php");
 }
 
 $user_id = $_SESSION['user_id'];
@@ -20,13 +19,13 @@ if(isset($_GET['devenir_prestataire'])){
     $conn->prepare("UPDATE Utilisateur SET est_prestataire = 1, is_validated = 0 WHERE id_utilisateur = ?")->execute([$user_id]);
     $_SESSION['est_prestataire'] = 1;
     $_SESSION['is_validated'] = 0;
-    header("Location: mon_profil.php"); exit();
+    redirection("mon_profil.php");
 }
 
 if(isset($_GET['devenir_client'])){
     $conn->prepare("UPDATE Utilisateur SET est_client = 1 WHERE id_utilisateur = ?")->execute([$user_id]);
     $_SESSION['est_client'] = 1;
-    header("Location: mon_profil.php"); exit();
+    redirection("mon_profil.php");
 }
 
 // Logic de mise à jour du profil complet
@@ -54,7 +53,7 @@ if(isset($_POST['update_profile'])){
     }
 
     $_SESSION['profile_success'] = "Vos informations ont été mises à jour avec succès !";
-    header("Location: mon_profil.php"); exit();
+    redirection("mon_profil.php");
 }
 
 // ---------------------------------------------------------

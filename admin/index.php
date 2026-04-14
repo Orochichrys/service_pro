@@ -6,8 +6,7 @@ require_once("../includes/db.php");
 if (isset($_GET['approuver'])) {
     $id = (int)$_GET['approuver'];
     $conn->prepare("UPDATE Utilisateur SET is_validated = 1 WHERE id_utilisateur = ?")->execute([$id]);
-    header("Location: index.php");
-    exit();
+    redirection("index.php");
 }
 
 // 1. Nombre d'utilisateurs

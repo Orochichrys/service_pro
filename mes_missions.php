@@ -5,13 +5,11 @@ require_once("includes/fonctions.php");
 
 // 1. Vérification prestataire
 if (!isset($_SESSION['user_id']) || !$_SESSION['est_prestataire']) {
-    header("Location: auth/connexion.php");
-    exit();
+    redirection("auth/connexion.php");
 }
 if (isset($_SESSION['is_validated']) && $_SESSION['is_validated'] == 0) {
     $_SESSION['profile_success'] = "Veuillez patienter ! Votre compte prestataire est en attente de validation par l'administration.";
-    header("Location: mon_profil.php");
-    exit();
+    redirection("mon_profil.php");
 }
 
 $user_id = $_SESSION['user_id'];
@@ -38,8 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action_mission'])) {
         }
         
         // CORRECTION : Redirection pour vider le cache POST (Evite l'alerte de re-soumission au rafraîchissement)
-        header("Location: mes_missions.php");
-        exit();
+        redirection("mes_missions.php");
     }
 }
 
@@ -76,15 +73,7 @@ $missions = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <style>
-        .mission-card { transition: all 0.3s ease; border: 1px solid rgba(0,0,0,0.05); }
-        .mission-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important; }
-        .status-badge { font-size: 0.7rem; padding: 0.4rem 0.8rem; border-radius: 50px; text-uppercase: bold; }
-        .bg-waiting { background-color: #fff3cd; color: #856404; }
-        .bg-confirmed { background-color: #cce5ff; color: #004085; }
-        .bg-done { background-color: #d4edda; color: #155724; }
-        .bg-canceled { background-color: #f8d7da; color: #721c24; }
-    </style>
+    
 </head>
 
 <body class="bg-light">

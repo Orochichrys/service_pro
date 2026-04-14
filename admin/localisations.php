@@ -9,7 +9,7 @@ if (isset($_POST['ajouter_region'])) {
     if (!empty($nom)) {
         $conn->prepare("INSERT INTO Region (nom_region) VALUES (:nom)")->execute(['nom' => $nom]);
     }
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 
 if (isset($_POST['ajouter_departement'])) {
@@ -18,7 +18,7 @@ if (isset($_POST['ajouter_departement'])) {
     if (!empty($nom) && !empty($id_reg)) {
         $conn->prepare("INSERT INTO Departement (nom_departement, id_region) VALUES (:nom, :id_reg)")->execute(['nom' => $nom, 'id_reg' => $id_reg]);
     }
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 
 if (isset($_POST['ajouter_ville'])) {
@@ -27,7 +27,7 @@ if (isset($_POST['ajouter_ville'])) {
     if (!empty($nom) && !empty($id_dept)) {
         $conn->prepare("INSERT INTO Ville (nom_ville, id_departement) VALUES (:nom, :id_dept)")->execute(['nom' => $nom, 'id_dept' => $id_dept]);
     }
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 
 if (isset($_POST['ajouter_quartier'])) {
@@ -36,7 +36,7 @@ if (isset($_POST['ajouter_quartier'])) {
     if (!empty($nom) && !empty($id_ville)) {
         $conn->prepare("INSERT INTO Quartier (nom_quartier, id_ville) VALUES (:nom, :id_ville)")->execute(['nom' => $nom, 'id_ville' => $id_ville]);
     }
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 
 // 1.5 TRAITEMENT DES MODIFICATIONS
@@ -46,7 +46,7 @@ if (isset($_POST['modifier_region'])) {
     if (!empty($id) && !empty($nom)) {
         $conn->prepare("UPDATE Region SET nom_region = :nom WHERE id_region = :id")->execute(['nom' => $nom, 'id' => $id]);
     }
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 
 if (isset($_POST['modifier_departement'])) {
@@ -56,7 +56,7 @@ if (isset($_POST['modifier_departement'])) {
     if (!empty($id) && !empty($nom) && !empty($id_reg)) {
         $conn->prepare("UPDATE Departement SET nom_departement = :nom, id_region = :id_reg WHERE id_departement = :id")->execute(['nom' => $nom, 'id_reg' => $id_reg, 'id' => $id]);
     }
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 
 if (isset($_POST['modifier_ville'])) {
@@ -66,7 +66,7 @@ if (isset($_POST['modifier_ville'])) {
     if (!empty($id) && !empty($nom) && !empty($id_dept)) {
         $conn->prepare("UPDATE Ville SET nom_ville = :nom, id_departement = :id_dept WHERE id_ville = :id")->execute(['nom' => $nom, 'id_dept' => $id_dept, 'id' => $id]);
     }
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 
 if (isset($_POST['modifier_quartier'])) {
@@ -76,25 +76,25 @@ if (isset($_POST['modifier_quartier'])) {
     if (!empty($id) && !empty($nom) && !empty($id_ville)) {
         $conn->prepare("UPDATE Quartier SET nom_quartier = :nom, id_ville = :id_ville WHERE id_quartier = :id")->execute(['nom' => $nom, 'id_ville' => $id_ville, 'id' => $id]);
     }
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 
 // 2. TRAITEMENT DES SUPPRESSIONS
 if (isset($_GET['suppr_region'])) {
     $conn->prepare("DELETE FROM Region WHERE id_region = ?")->execute([securisation($_GET['suppr_region'])]);
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 if (isset($_GET['suppr_dept'])) {
     $conn->prepare("DELETE FROM Departement WHERE id_departement = ?")->execute([securisation($_GET['suppr_dept'])]);
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 if (isset($_GET['suppr_ville'])) {
     $conn->prepare("DELETE FROM Ville WHERE id_ville = ?")->execute([securisation($_GET['suppr_ville'])]);
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 if (isset($_GET['suppr_quartier'])) {
     $conn->prepare("DELETE FROM Quartier WHERE id_quartier = ?")->execute([securisation($_GET['suppr_quartier'])]);
-    header("Location: localisations.php"); exit();
+    redirection("localisations.php");
 }
 
 // 3. RÉCUPÉRATION DES DONNÉES
@@ -359,26 +359,6 @@ $quartiers = $conn->query("SELECT q.*, v.nom_ville FROM Quartier q JOIN Ville v 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-    function remplirRegion(btn) {
-        document.getElementById('edit_reg_id').value = btn.getAttribute('data-id');
-        document.getElementById('edit_reg_nom').value = btn.getAttribute('data-nom');
-    }
-    function remplirDept(btn) {
-        document.getElementById('edit_dept_id').value = btn.getAttribute('data-id');
-        document.getElementById('edit_dept_nom').value = btn.getAttribute('data-nom');
-        document.getElementById('edit_dept_reg').value = btn.getAttribute('data-reg');
-    }
-    function remplirVille(btn) {
-        document.getElementById('edit_ville_id').value = btn.getAttribute('data-id');
-        document.getElementById('edit_ville_nom').value = btn.getAttribute('data-nom');
-        document.getElementById('edit_ville_dept').value = btn.getAttribute('data-dept');
-    }
-    function remplirQuartier(btn) {
-        document.getElementById('edit_q_id').value = btn.getAttribute('data-id');
-        document.getElementById('edit_q_nom').value = btn.getAttribute('data-nom');
-        document.getElementById('edit_q_ville').value = btn.getAttribute('data-ville');
-    }
-    </script>
+    <script src="assets/js/admin.js"></script>
 </body>
 </html>

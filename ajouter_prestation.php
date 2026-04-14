@@ -5,13 +5,11 @@ require_once("includes/fonctions.php");
 
 // 1. Vérification si prestataire
 if (!isset($_SESSION['user_id']) || !$_SESSION['est_prestataire']) {
-    header("Location: auth/connexion.php");
-    exit();
+    redirection("auth/connexion.php");
 }
 if (isset($_SESSION['is_validated']) && $_SESSION['is_validated'] == 0) {
     $_SESSION['profile_success'] = "Veuillez patienter ! Votre compte prestataire est en attente de validation par l'administration.";
-    header("Location: mon_profil.php");
-    exit();
+    redirection("mon_profil.php");
 }
 
 $user_id = $_SESSION['user_id'];
@@ -64,8 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $conn->prepare($sql)->execute([$titre, $description, $prix, $image_path, $id_service, $user_id]);
         
         $_SESSION['service_msg'] = "Félicitations ! Votre service a été soumis et sera visible dès qu'il sera validé par l'administration.";
-        header("Location: mes_services.php");
-        exit();
+        redirection("mes_services.php");
     }
 }
 ?>
@@ -80,25 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <style>
-        .border-dashed {
-            border: 2px dashed #dee2e6;
-            transition: border-color 0.3s;
-        }
-
-        .border-dashed:hover {
-            border-color: var(--primary-color);
-        }
-
-        .form-control-lg {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .bg-primary-soft {
-            background-color: #f3f0ff;
-        }
-    </style>
+    
 </head>
 
 <body class="bg-light">

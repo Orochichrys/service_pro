@@ -15,8 +15,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
         $_SESSION['admin_msg'] = "La prestation a été rejetée.";
     }
     
-    header("Location: prestations.php");
-    exit();
+    redirection("prestations.php");
 }
 
 // Récupération des prestations en attente

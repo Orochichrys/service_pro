@@ -104,21 +104,4 @@ require_once(__DIR__ . "/verif_validation.php");
 </div>
 <?php endif; ?>
 
-<style>
-    @media (max-width: 991.98px) {
-        .navbar-nav { text-align: left !important; align-items: flex-start !important; padding: 15px 0; }
-        .nav-link { width: 100%; font-size: 1.1rem; }
-        .nav-item { width: 100%; }
-    }
-    .btn-outline-primary { color: #6f42c1; border-color: #6f42c1; }
-    .btn-outline-primary:hover { background-color: #6f42c1; border-color: #6f42c1; color: white; }
-    .nav-link.active { color: #6f42c1 !important; }
-    .btn-primary { background-color: #6f42c1; border-color: #6f42c1; }
-    .btn-primary:hover { background-color: #5a32a3; border-color: #5a32a3; }
-    
-    /* Bordure sous "Explorer" seulement sur mobile et si déconnecté */
-    .border-bottom-mobile { border-bottom: 1px solid #dee2e6; }
-    @media (min-width: 992px) {
-        .border-bottom-mobile { border-bottom: 0 !important; }
-    }
-</style>
+
