@@ -20,7 +20,7 @@ require_once(__DIR__ . "/verif_validation.php");
         </button>
         
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto mb-0" style="gap: 5px;">
+            <ul class="navbar-nav ms-auto mb-0 align-items-center" style="gap: 5px;">
                 <li class="nav-item">
                     <a class="nav-link py-2 px-0 px-lg-3 <?php echo ($current_page == 'index.php') ? 'active fw-bold text-primary' : ''; ?>" href="index.php">Accueil</a>
                 </li>

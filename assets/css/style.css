@@ -62,7 +62,7 @@ section, header, footer {
 .hero-section {
     height: 60vh;
     background: linear-gradient(rgba(111, 66, 193, 0.8), rgba(0, 0, 0, 0.7)), 
-                url('https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+                url('../img/hero.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -262,7 +262,7 @@ a:hover {
 .split-container { min-height: 100vh; height: 100vh; }
 .image-side {
     background: linear-gradient(rgba(111, 66, 193, 0.4), rgba(0, 0, 0, 0.6)), 
-                url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+                url('../img/connexion.jpg');
     background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; padding: 4rem; color: white;
 }
 .form-side { background-color: #fff; display: flex; align-items: center; justify-content: center; padding: 3rem; }
@@ -294,8 +294,27 @@ a:hover {
 .bg-primary-soft { background-color: #f3f0ff; }
 
 /* Barre de Navigation */
-.navbar-nav { text-align: left !important; align-items: flex-start !important; }
+.navbar-nav { align-items: center; } /* Alignement par défaut (Desktop) */
 .border-bottom-mobile { border-bottom: 1px solid #dee2e6; }
+
+@media (max-width: 991.98px) {
+    .navbar-nav { 
+        text-align: left !important; 
+        align-items: flex-start !important; 
+        width: 100% !important; 
+        margin-left: 0 !important; 
+        margin-right: 0 !important; 
+        gap: 10px; /* Un peu d'espace entre les éléments sur mobile */
+    }
+    .nav-item { width: 100% !important; }
+    .nav-link { 
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+    .navbar-collapse { padding-bottom: 20px; }
+    .border-bottom-mobile { border-bottom: 1px solid #dee2e6; }
+}
+
 @media (min-width: 992px) {
     .border-bottom-mobile { border-bottom: 0 !important; }
 }
@@ -311,14 +330,4 @@ a:hover {
 .sticky-custom {
     top: 100px;
     z-index: 1010 !important;
-}
-
- /* Forcer les éléments de la navbar à occuper 100% sur mobile */ 
-  (max-width: 991.98px) { 
-     .navbar-nav { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; } 
-     .nav-item { width: 100% !important; } 
-     .navbar-collapse { padding-bottom: 20px; } 
- }
-    .nav-item { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
-    .navbar-collapse { padding-bottom: 15px; }
 }
