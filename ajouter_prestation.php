@@ -1,11 +1,11 @@
 <?php 
 session_start();
 require_once("includes/db.php");
-require_once("includes/function.php");
+require_once("includes/fonctions.php");
 
 // 1. Vérification si prestataire
 if (!isset($_SESSION['user_id']) || !$_SESSION['est_prestataire']) {
-    header("Location: auth/login.php");
+    header("Location: auth/connexion.php");
     exit();
 }
 if (isset($_SESSION['is_validated']) && $_SESSION['is_validated'] == 0) {
@@ -30,28 +30,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // IMAGE UPLOAD LOGIC
     $image_path = "assets/img/default.jpg"; // Image par défaut
     
-    if (isset($_FILES['image_prestation']) && $_FILES['image_prestation']['error'] == 0) {
-        $allowed = ['jpg', 'jpeg', 'png', 'webp'];
-        $filename = $_FILES['image_prestation']['name'];
-        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-        
-        if (in_array($ext, $allowed)) {
-            $new_name = "service_" . time() . "_" . uniqid() . "." . $ext;
-            $upload_dir = "assets/img/uploads/";
+    $upload_error = "";
+    if (isset($_FILES['image_prestation']) && $_FILES['image_prestation']['name'] != "") {
+        if ($_FILES['image_prestation']['error'] == 0) {
+            $allowed = ['jpg', 'jpeg', 'png', 'webp'];
+            $filename = $_FILES['image_prestation']['name'];
+            $filesize = $_FILES['image_prestation']['size'];
+            $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
             
-            if (move_uploaded_file($_FILES['image_prestation']['tmp_name'], $upload_dir . $new_name)) {
-                $image_path = $upload_dir . $new_name;
+            // On limite à 5Mo pour être large mais sécurisé
+            if ($filesize > 5 * 1024 * 1024) {
+                $upload_error = "L'image est trop volumineuse (max 5Mo).";
+            } elseif (!in_array($ext, $allowed)) {
+                $upload_error = "Format d'image non autorisé (JPG, PNG, WEBP uniquement).";
+            } else {
+                $new_name = "service_" . time() . "_" . uniqid() . "." . $ext;
+                $upload_dir = "assets/img/uploads/";
+                
+                if (move_uploaded_file($_FILES['image_prestation']['tmp_name'], $upload_dir . $new_name)) {
+                    $image_path = $upload_dir . $new_name;
+                } else {
+                    $upload_error = "Erreur lors de l'enregistrement de l'image sur le serveur. Vérifiez les droits d'écriture.";
+                }
             }
+        } else {
+            $upload_error = "Erreur lors du transfert de l'image (Code d'erreur : " . $_FILES['image_prestation']['error'] . ").";
         }
     }
 
-    if (!empty($titre) && !empty($id_service) && $prix > 0) {
+    if (empty($upload_error) && !empty($titre) && !empty($id_service) && $prix > 0) {
         $sql = "INSERT INTO Prestation (titre_prestation, description_prestation, prix_prestation, image_prestation, id_service, id_utilisateur) 
                 VALUES (?, ?, ?, ?, ?, ?)";
         $conn->prepare($sql)->execute([$titre, $description, $prix, $image_path, $id_service, $user_id]);
         
-        $_SESSION['commande_bravo'] = "Félicitations ! Votre nouveau service est en ligne.";
-        header("Location: mon_profil.php#services");
+        $_SESSION['service_msg'] = "Félicitations ! Votre service a été soumis et sera visible dès qu'il sera validé par l'administration.";
+        header("Location: mes_services.php");
         exit();
     }
 }
@@ -90,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body class="bg-light">
 
-    <?php include("includes/navbar.php"); ?>
+    <?php include("includes/barre_navigation.php"); ?>
 
     <div class="container py-5">
         <div class="row">
@@ -109,6 +122,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <h2 class="fw-bold h3 text-primary">Publier une prestation</h2>
                         <p class="text-muted small">Partagez votre expertise avec la communauté ServicePro.</p>
                     </div>
+
+                    <?php if(!empty($upload_error)): ?>
+                        <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-4">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i> <?php echo $upload_error; ?>
+                        </div>
+                    <?php endif; ?>
 
                     <form action="" method="POST" enctype="multipart/form-data">
 
@@ -166,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
-    <?php include("includes/footer.php");?>
+    <?php include("includes/pied_de_page.php");?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

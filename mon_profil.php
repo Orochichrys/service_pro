@@ -1,11 +1,11 @@
 <?php 
 session_start();
 require_once("includes/db.php");
-require_once("includes/function.php");
+require_once("includes/fonctions.php");
 
 // 1. Vérification connexion
 if (!isset($_SESSION['user_id'])) {
-    header("Location: auth/login.php");
+    header("Location: auth/connexion.php");
     exit();
 }
 
@@ -88,7 +88,7 @@ $quartiers = $conn->query("SELECT q.*, v.nom_ville FROM Quartier q JOIN Ville v 
 </head>
 <body class="bg-light">
 
-    <?php include("includes/navbar.php"); ?>
+    <?php include("includes/barre_navigation.php"); ?>
 
     <div class="container py-5">
         <div class="row">
@@ -208,7 +208,7 @@ $quartiers = $conn->query("SELECT q.*, v.nom_ville FROM Quartier q JOIN Ville v 
         </div>
     </div>
 
-    <?php include("includes/footer.php");?>
+    <?php include("includes/pied_de_page.php");?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

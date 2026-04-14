@@ -1,5 +1,5 @@
 <?php
-// includes/validation_check.php
+// includes/verif_validation.php
 
 $provider_is_blocked = false;
 

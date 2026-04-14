@@ -12,7 +12,8 @@
     </div>
     <nav class="mt-4">
         <a href="index.php" class="nav-link-admin <?php echo ($current_page == 'index.php') ? 'active' : ''; ?>"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
-        <a href="users.php" class="nav-link-admin <?php echo ($current_page == 'users.php') ? 'active' : ''; ?>"><i class="bi bi-people me-2"></i> Utilisateurs</a>
+        <a href="utilisateurs.php" class="nav-link-admin <?php echo ($current_page == 'utilisateurs.php') ? 'active' : ''; ?>"><i class="bi bi-people me-2"></i> Utilisateurs</a>
+        <a href="prestations.php" class="nav-link-admin <?php echo ($current_page == 'prestations.php') ? 'active' : ''; ?>"><i class="bi bi-patch-check me-2"></i> Validation Services</a>
         <a href="categories.php" class="nav-link-admin <?php echo ($current_page == 'categories.php') ? 'active' : ''; ?>"><i class="bi bi-list-ul me-2"></i> Catégories</a>
         <a href="commandes.php" class="nav-link-admin <?php echo ($current_page == 'commandes.php') ? 'active' : ''; ?>"><i class="bi bi-cart me-2"></i> Commandes</a>
         <a href="localisations.php" class="nav-link-admin <?php echo ($current_page == 'localisations.php') ? 'active' : ''; ?>"><i class="bi bi-geo-alt me-2"></i> Localisations</a>

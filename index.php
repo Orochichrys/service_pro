@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once("includes/db.php");
-require_once("includes/function.php");
+require_once("includes/fonctions.php");
 
 // 1. Récupération des catégories (8 max pour l'accueil)
 $categories = $conn->query("SELECT * FROM Categorie LIMIT 8")->fetchAll(PDO::FETCH_ASSOC);
@@ -14,6 +14,7 @@ $sql = "SELECT p.*, u.nom_utilisateur, u.prenom_utilisateur, q.nom_quartier, v.n
         JOIN Categorie c ON s.id_categorie = c.id_categorie
         LEFT JOIN Quartier q ON u.id_quartier = q.id_quartier
         LEFT JOIN Ville v ON q.id_ville = v.id_ville
+        WHERE p.statut_prestation = 'validee'
         ORDER BY p.datecrea_prestation DESC 
         LIMIT 6";
 $prestations = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -32,7 +33,7 @@ $prestations = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
 
-    <?php include("includes/navbar.php"); ?>
+    <?php include("includes/barre_navigation.php"); ?>
 
     <!-- HERO SECTION -->
     <header class="hero-section text-white d-flex align-items-center">
@@ -221,11 +222,11 @@ $prestations = $conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         <div class="container py-4 text-center position-relative" style="z-index: 2;">
             <h2 class="fw-bold h1 mb-3">Gagnez de l'argent avec ServicePro</h2>
             <p class="lead mb-4 opacity-75 small">Rejoignez notre réseau d'experts et boostez votre activité dès aujourd'hui.</p>
-            <a href="auth/register.php" class="btn btn-light btn-lg px-5 py-3 fw-bold rounded-pill text-primary border-0 shadow-sm mt-2">Devenir Prestataire</a>
+            <a href="auth/inscription.php" class="btn btn-light btn-lg px-5 py-3 fw-bold rounded-pill text-primary border-0 shadow-sm mt-2">Devenir Prestataire</a>
         </div>
     </section>
 
-    <?php include("includes/footer.php");?>
+    <?php include("includes/pied_de_page.php");?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

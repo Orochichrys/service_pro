@@ -21,8 +21,8 @@
                 <ul class="list-unstyled mb-0">
                     <li class="mb-2"><a href="index.php" class="footer-link">Accueil</a></li>
                     <li class="mb-2"><a href="catalogue.php" class="footer-link">Explorer</a></li>
-                    <li class="mb-2"><a href="auth/register.php" class="footer-link">Devenir Prestataire</a></li>
-                    <li class="mb-2"><a href="auth/login.php" class="footer-link">Connexion</a></li>
+                    <li class="mb-2"><a href="auth/inscription.php" class="footer-link">Devenir Prestataire</a></li>
+                    <li class="mb-2"><a href="auth/connexion.php" class="footer-link">Connexion</a></li>
                 </ul>
             </div>
             

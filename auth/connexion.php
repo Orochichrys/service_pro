@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once("../includes/db.php");
-require_once("../includes/function.php");
+require_once("../includes/fonctions.php");
 
 $erreur = "";
 
@@ -157,7 +157,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                         
                         <div class="text-center">
                             <span class="text-muted small">Pas encore de compte ? </span>
-                            <a href="register.php" class="text-primary fw-bold text-decoration-none small">Créer un compte gratuitement</a>
+                            <a href="inscription.php" class="text-primary fw-bold text-decoration-none small">Créer un compte gratuitement</a>
                         </div>
                     </form>
                 </div>

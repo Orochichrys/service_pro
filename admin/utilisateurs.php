@@ -1,7 +1,7 @@
 <?php 
-require_once("includes/auth_check.php"); 
+require_once("includes/verif_auth.php"); 
 require_once("../includes/db.php");
-require_once("../includes/function.php");
+require_once("../includes/fonctions.php");
 
 // Suppression d'un utilisateur
 if (isset($_GET['supprimer'])) {
@@ -9,7 +9,7 @@ if (isset($_GET['supprimer'])) {
     $sql_delete = "DELETE FROM Utilisateur WHERE id_utilisateur = :id AND est_admin = FALSE"; // On ne supprime pas les admins ici par sécurité
     $stmt = $conn->prepare($sql_delete);
     $stmt->execute(['id' => $id_a_supprimer]);
-    header("Location: users.php");
+    header("Location: utilisateurs.php");
     exit();
 }
 
@@ -17,7 +17,7 @@ if (isset($_GET['supprimer'])) {
 if (isset($_GET['approuver'])) {
     $id = (int)$_GET['approuver'];
     $conn->prepare("UPDATE Utilisateur SET is_validated = 1 WHERE id_utilisateur = ?")->execute([$id]);
-    header("Location: users.php");
+    header("Location: utilisateurs.php");
     exit();
 }
 
@@ -80,7 +80,7 @@ $villes = $conn->query("SELECT * FROM Ville ORDER BY nom_ville")->fetchAll(PDO::
 </head>
 <body>
 
-<?php include("includes/sidebar.php") ?>
+<?php include("includes/barre_laterale.php") ?>
 
     <div class="main-content">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -177,11 +177,11 @@ $villes = $conn->query("SELECT * FROM Ville ORDER BY nom_ville")->fetchAll(PDO::
                             <td class="text-end pe-4">
                                 <div class="btn-group">
                                     <?php if ($u['est_prestataire'] && !$u['is_validated']): ?>
-                                        <a href="users.php?approuver=<?php echo $u['id_utilisateur']; ?>" class="btn text-success" title="Approuver"><i class="bi bi-check-circle-fill"></i></a>
+                                        <a href="utilisateurs.php?approuver=<?php echo $u['id_utilisateur']; ?>" class="btn text-success" title="Approuver"><i class="bi bi-check-circle-fill"></i></a>
                                     <?php endif; ?>
                                     <a href="#" class="btn text-primary" title="Modifier"><i class="bi bi-pencil-square"></i></a>
                                     <?php if (!$u['est_admin']): ?>
-                                    <a href="users.php?supprimer=<?php echo $u['id_utilisateur']; ?>" 
+                                    <a href="utilisateurs.php?supprimer=<?php echo $u['id_utilisateur']; ?>" 
                                        class="btn text-danger" 
                                        onclick="return confirm('Supprimer cet utilisateur ?')" 
                                        title="Supprimer"><i class="bi bi-trash"></i></a>

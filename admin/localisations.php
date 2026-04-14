@@ -1,7 +1,7 @@
 <?php 
-require_once("includes/auth_check.php"); 
+require_once("includes/verif_auth.php"); 
 require_once("../includes/db.php");
-require_once("../includes/function.php");
+require_once("../includes/fonctions.php");
 
 // 1. TRAITEMENT DES AJOUTS
 if (isset($_POST['ajouter_region'])) {
@@ -116,7 +116,7 @@ $quartiers = $conn->query("SELECT q.*, v.nom_ville FROM Quartier q JOIN Ville v 
 </head>
 <body>
 
-    <?php include("includes/sidebar.php") ?>
+    <?php include("includes/barre_laterale.php") ?>
 
     <div class="main-content">
         <h2 class="fw-bold mb-4">Gestion des Localisations</h2>

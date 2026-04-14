@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once("includes/db.php");
-require_once("includes/function.php");
+require_once("includes/fonctions.php");
 
 // 1. Vérification prestataire
 if (!isset($_SESSION['user_id']) || !$_SESSION['est_prestataire']) {
@@ -48,7 +48,7 @@ $mes_services = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body class="bg-light">
 
-    <?php include("includes/navbar.php"); ?>
+    <?php include("includes/barre_navigation.php"); ?>
 
     <div class="container py-5">
         <div class="row">
@@ -97,6 +97,15 @@ $mes_services = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                 </div>
                                             </div>
                                             <h6 class="fw-bold mb-1"><?php echo $s['titre_prestation']; ?></h6>
+                                            <div class="mb-2">
+                                                 <?php if($s['statut_prestation'] == 'en_attente'): ?>
+                                                     <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-2" style="font-size: 0.6rem;">En attente de validation</span>
+                                                 <?php elseif($s['statut_prestation'] == 'validee'): ?>
+                                                     <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2" style="font-size: 0.6rem;">Validé</span>
+                                                 <?php else: ?>
+                                                     <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill px-2" style="font-size: 0.6rem;">Refusé</span>
+                                                 <?php endif; ?>
+                                             </div>
                                             <div class="fw-bold mb-2 text-dark"><?php echo number_format($s['prix_prestation'], 0, ',', ' '); ?> F</div>
                                             <div class="mt-auto">
                                                 <a href="detail_prestation.php?id=<?php echo $s['id_prestation']; ?>" class="text-muted small text-decoration-none">
@@ -122,7 +131,7 @@ $mes_services = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
-    <?php include("includes/footer.php");?>
+    <?php include("includes/pied_de_page.php");?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

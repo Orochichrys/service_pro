@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once("../includes/db.php");
-require_once("../includes/function.php");
+require_once("../includes/fonctions.php");
 
 // 1. Récupération des quartiers pour le formulaire
 $quartiers = $conn->query("SELECT q.*, v.nom_ville FROM Quartier q JOIN Ville v ON q.id_ville = v.id_ville ORDER BY v.nom_ville, q.nom_quartier")->fetchAll(PDO::FETCH_ASSOC);
@@ -179,7 +179,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                     <div class="text-center mt-5">
                         <span class="text-muted small">Vous avez déjà un compte ? </span>
-                        <a href="login.php" class="text-primary fw-bold text-decoration-none small">Se connecter</a>
+                        <a href="connexion.php" class="text-primary fw-bold text-decoration-none small">Se connecter</a>
                     </div>
                 </div>
             </div>

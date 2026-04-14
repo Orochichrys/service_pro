@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once("includes/db.php");
-require_once("includes/function.php");
+require_once("includes/fonctions.php");
 
 // 1. Récupération des filtres depuis l'URL
 $search = isset($_GET['search']) ? securisation($_GET['search']) : "";
@@ -26,7 +26,7 @@ $count_sql = "SELECT COUNT(*) FROM Prestation p
               JOIN Utilisateur u ON p.id_utilisateur = u.id_utilisateur
               LEFT JOIN Quartier q ON u.id_quartier = q.id_quartier
               LEFT JOIN Ville v ON q.id_ville = v.id_ville
-              WHERE p.prix_prestation <= :prix AND u.is_validated = 1";
+              WHERE p.prix_prestation <= :prix AND u.is_validated = 1 AND p.statut_prestation = 'validee'";
 
 $sql = "SELECT p.*, u.nom_utilisateur, u.prenom_utilisateur, q.nom_quartier, v.nom_ville, s.nom_service, c.nom_categorie 
         FROM Prestation p 
@@ -35,7 +35,7 @@ $sql = "SELECT p.*, u.nom_utilisateur, u.prenom_utilisateur, q.nom_quartier, v.n
         JOIN Categorie c ON s.id_categorie = c.id_categorie
         LEFT JOIN Quartier q ON u.id_quartier = q.id_quartier
         LEFT JOIN Ville v ON q.id_ville = v.id_ville
-        WHERE p.prix_prestation <= :prix AND u.is_validated = 1";
+        WHERE p.prix_prestation <= :prix AND u.is_validated = 1 AND p.statut_prestation = 'validee'";
 
 $params = ['prix' => $prix_max];
 $where = "";
@@ -89,7 +89,7 @@ $base_url = "catalogue.php?" . http_build_query($query_params);
 
 <body class="bg-light">
 
-    <?php include("includes/navbar.php"); ?>
+    <?php include("includes/barre_navigation.php"); ?>
 
     <div class="container py-4">
         <div class="row">
@@ -243,7 +243,7 @@ $base_url = "catalogue.php?" . http_build_query($query_params);
         </div>
     </div>
 
-       <?php include("includes/footer.php");?>
+       <?php include("includes/pied_de_page.php");?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once("includes/db.php");
-require_once("includes/function.php");
+require_once("includes/fonctions.php");
 
 $id_presta = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if($id_presta == 0) { header("Location: catalogue.php"); exit(); }
@@ -21,6 +21,14 @@ $stmt->execute([$id_presta]);
 $p = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$p) { header("Location: catalogue.php"); exit(); }
+
+// Vérification de visibilité : Seul le proprio, l'admin ou tout le monde si c'est validé
+$is_owner = (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $p['id_utilisateur']);
+$is_admin = (isset($_SESSION['est_admin']) && $_SESSION['est_admin'] == 1);
+if ($p['statut_prestation'] !== 'validee' && !$is_owner && !$is_admin) {
+    header("Location: catalogue.php");
+    exit();
+}
 
 // 2. Liste des quartiers pour la modal
 $liste_quartiers = $conn->query("SELECT q.*, v.nom_ville FROM Quartier q JOIN Ville v ON q.id_ville = v.id_ville ORDER BY v.nom_ville, q.nom_quartier")->fetchAll(PDO::FETCH_ASSOC);
@@ -108,7 +116,7 @@ if($user_id > 0){
 
 <body class="bg-light">
 
-    <?php include("includes/navbar.php"); ?>
+    <?php include("includes/barre_navigation.php"); ?>
 
     <div class="container py-5">
         
@@ -119,6 +127,19 @@ if($user_id > 0){
         <?php endif; ?>
 
         <div class="row g-4">
+            <?php if($is_owner && $p['statut_prestation'] == 'en_attente'): ?>
+                <div class="col-12">
+                    <div class="alert alert-warning rounded-4 border-0 shadow-sm mb-0">
+                        <i class="bi bi-clock-history me-2"></i> <strong>Ce service est en cours de vérification.</strong> Il n'est pas encore visible pour les clients.
+                    </div>
+                </div>
+            <?php elseif($is_owner && $p['statut_prestation'] == 'refusee'): ?>
+                <div class="col-12">
+                    <div class="alert alert-danger rounded-4 border-0 shadow-sm mb-0">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> <strong>Ce service a été refusé par l'administration.</strong> Veuillez le modifier pour qu'il soit réexaminé.
+                    </div>
+                </div>
+            <?php endif; ?>
 
             <div class="col-lg-8">
                 <div class="card border-0 shadow-sm overflow-hidden mb-4 rounded-4">
@@ -249,7 +270,7 @@ if($user_id > 0){
                                 </button>
                             <?php endif; ?>
                         <?php else: ?>
-                            <a href="auth/login.php" class="btn btn-primary w-100 py-3 fw-bold mb-3 shadow-sm rounded-pill">
+                            <a href="auth/connexion.php" class="btn btn-primary w-100 py-3 fw-bold mb-3 shadow-sm rounded-pill">
                                 Se connecter pour commander
                             </a>
                         <?php endif; ?>
@@ -320,7 +341,7 @@ if($user_id > 0){
         </div>
     </div>
 
-    <?php include("includes/footer.php");?>
+    <?php include("includes/pied_de_page.php");?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

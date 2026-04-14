@@ -1,6 +1,6 @@
 <?php 
 $current_page = basename($_SERVER['PHP_SELF']); 
-require_once(__DIR__ . "/validation_check.php");
+require_once(__DIR__ . "/verif_validation.php");
 ?>
 
 <?php if(isset($provider_is_blocked) && $provider_is_blocked): ?>
@@ -24,7 +24,7 @@ require_once(__DIR__ . "/validation_check.php");
                 <li class="nav-item">
                     <a class="nav-link py-2 px-0 px-lg-3 <?php echo ($current_page == 'index.php') ? 'active fw-bold text-primary' : ''; ?>" href="index.php">Accueil</a>
                 </li>
-                <li class="nav-item border-bottom border-lg-0">
+                <li class="nav-item <?php echo (!isset($_SESSION['user_id'])) ? 'border-bottom-mobile' : ''; ?>">
                     <a class="nav-link py-2 px-0 px-lg-3 <?php echo ($current_page == 'catalogue.php') ? 'active fw-bold text-primary' : ''; ?>" href="catalogue.php">Explorer</a>
                 </li>
                 
@@ -54,15 +54,15 @@ require_once(__DIR__ . "/validation_check.php");
                             <?php endif; ?>
                             
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item py-2 rounded-3 text-danger" href="auth/logout.php"><i class="bi bi-box-arrow-right me-2"></i>Déconnexion</a></li>
+                            <li><a class="dropdown-item py-2 rounded-3 text-danger" href="auth/deconnexion.php"><i class="bi bi-box-arrow-right me-2"></i>Déconnexion</a></li>
                         </ul>
                     </li>
                 <?php else: ?>
                     <li class="nav-item mt-3 mt-lg-0">
-                        <a class="btn btn-outline-primary btn-md rounded-3 fw-bold d-block w-100 px-lg-4" href="auth/login.php">Connexion</a>
+                        <a class="btn btn-outline-primary btn-md rounded-3 fw-bold d-block w-100 px-lg-4" href="auth/connexion.php">Connexion</a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-0">
-                        <a class="btn btn-primary btn-md rounded-3 fw-bold shadow-sm d-block w-100 px-lg-4" href="auth/register.php">S'inscrire</a>
+                        <a class="btn btn-primary btn-md rounded-3 fw-bold shadow-sm d-block w-100 px-lg-4" href="auth/inscription.php">S'inscrire</a>
                     </li>
                 <?php endif; ?>
             </ul>
@@ -98,7 +98,7 @@ require_once(__DIR__ . "/validation_check.php");
             <?php endif; ?>
             
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item py-2 rounded-3 text-danger" href="auth/logout.php"><i class="bi bi-box-arrow-right me-2"></i>Déconnexion</a></li>
+            <li><a class="dropdown-item py-2 rounded-3 text-danger" href="auth/deconnexion.php"><i class="bi bi-box-arrow-right me-2"></i>Déconnexion</a></li>
         </ul>
     </div>
 </div>
@@ -115,4 +115,10 @@ require_once(__DIR__ . "/validation_check.php");
     .nav-link.active { color: #6f42c1 !important; }
     .btn-primary { background-color: #6f42c1; border-color: #6f42c1; }
     .btn-primary:hover { background-color: #5a32a3; border-color: #5a32a3; }
+    
+    /* Bordure sous "Explorer" seulement sur mobile et si déconnecté */
+    .border-bottom-mobile { border-bottom: 1px solid #dee2e6; }
+    @media (min-width: 992px) {
+        .border-bottom-mobile { border-bottom: 0 !important; }
+    }
 </style>

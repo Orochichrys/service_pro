@@ -1,7 +1,7 @@
 <?php 
-require_once("includes/auth_check.php"); 
+require_once("includes/verif_auth.php"); 
 require_once("../includes/db.php");
-require_once("../includes/function.php");
+require_once("../includes/fonctions.php");
 
 // Mise à jour du statut par l'ADMIN
 if (isset($_POST['update_statut'])) {
@@ -102,7 +102,7 @@ $villes = $conn->query("SELECT * FROM Ville ORDER BY nom_ville")->fetchAll(PDO::
 </head>
 <body>
 
-<?php include("includes/sidebar.php") ?>
+<?php include("includes/barre_laterale.php") ?>
 
     <div class="main-content">
         <div class="d-flex justify-content-between align-items-center mb-4">

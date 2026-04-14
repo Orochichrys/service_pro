@@ -68,7 +68,7 @@ try {
     <div style='background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404; padding: 15px; border-radius: 5px; margin-top: 20px;'>
         <strong>Important pour l'administrateur :</strong><br>
         Ce compte a été créé avec un mot de passe par défaut. 
-        Veuillez vous <a href=\"../auth/login.php\">connecter </a> immédiatement et <strong>modifier votre mot de passe</strong> depuis votre profil pour sécuriser l'accès.
+        Veuillez vous <a href=\"../auth/connexion.php\">connecter </a> immédiatement et <strong>modifier votre mot de passe</strong> depuis votre profil pour sécuriser l'accès.
        
     </div>
 ";

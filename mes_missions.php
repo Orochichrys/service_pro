@@ -1,11 +1,11 @@
 <?php 
 session_start();
 require_once("includes/db.php");
-require_once("includes/function.php");
+require_once("includes/fonctions.php");
 
 // 1. Vérification prestataire
 if (!isset($_SESSION['user_id']) || !$_SESSION['est_prestataire']) {
-    header("Location: auth/login.php");
+    header("Location: auth/connexion.php");
     exit();
 }
 if (isset($_SESSION['is_validated']) && $_SESSION['is_validated'] == 0) {
@@ -89,7 +89,7 @@ $missions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="bg-light">
 
-    <?php include("includes/navbar.php"); ?>
+    <?php include("includes/barre_navigation.php"); ?>
 
     <div class="container py-5">
         <div class="row mb-5 align-items-center">
@@ -203,7 +203,7 @@ $missions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
-    <?php include("includes/footer.php");?>
+    <?php include("includes/pied_de_page.php");?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

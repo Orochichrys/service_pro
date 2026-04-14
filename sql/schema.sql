@@ -39,6 +39,7 @@ CREATE TABLE Utilisateur (
     est_client BOOLEAN DEFAULT TRUE,
     est_prestataire BOOLEAN DEFAULT FALSE,
     est_admin BOOLEAN DEFAULT FALSE,
+    is_validated BOOLEAN DEFAULT TRUE,
     date_inscription DATETIME DEFAULT CURRENT_TIMESTAMP,
     id_quartier INT,
     FOREIGN KEY (id_quartier) REFERENCES Quartier(id_quartier) ON DELETE SET NULL
@@ -68,6 +69,7 @@ CREATE TABLE Prestation (
     datecrea_prestation DATETIME DEFAULT CURRENT_TIMESTAMP,
     id_service INT NOT NULL,
     id_utilisateur INT NOT NULL,
+    statut_prestation VARCHAR(20) DEFAULT 'en_attente',
     FOREIGN KEY (id_service) REFERENCES Service(id_service) ON DELETE CASCADE,
     FOREIGN KEY (id_utilisateur) REFERENCES Utilisateur(id_utilisateur) ON DELETE CASCADE
 ) ENGINE=InnoDB;
