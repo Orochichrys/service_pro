@@ -44,7 +44,7 @@ Si vous utilisez la base de données avec les données de démonstration, voici 
 
 | Rôle | Nom & Prénom | Email | Mot de passe |
 | :--- | :--- | :--- | :--- |
-| **☕ Admin** | Admin Principal | `admin@servicepro.ci` | `admin123` |
+| **☕ Admin** | Admin Principal | `admin@servicepro.ci` | `admin1234` |
 | **🛠️ Prestataire** | Marc Bakayoko | `marc.b@gmail.com` | `Presta123` |
 | **🎨 Prestataire** | Awa Coulibaly | `awa.design@yahoo.fr` | `Awa2026*` |
 | **👤 Client && Prestataire** | Jean-Luc Koffi | `jlkoffi@outlook.com` | `Client88` |
